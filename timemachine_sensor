@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'date'
+
+begin
+last = /\/([\d]{4}-[\d]{2}-[\d]{2}-[\d]{6})$/.match(`tmutil latestbackup`)[1]
+
+puts last.inspect
+
+date = Date.strptime(last,"%Y-%m-%d-%H%M%S")
+
+#match = /\/([\d]{4})-([\d]{2})-([\d]{2})-([\d]{6})$/.match last
+
+puts date.to_s
