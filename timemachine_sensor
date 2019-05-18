@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+
+require 'time'
+#require 'json'
+
+begin
+	latest = `tmutil latestbackup`
+
+	# Example return value from `tmutil latestbackup`
+	#latest = "/Volumes/MaxNAS TM/Backups.backupdb/mnemosyne/2019-05-17-183650"
+
+	# Match the DateTime string in the file path
+	ts = /\/([\d]{4})-([\d]{2})-([\d]{2})-([\d]{2})([\d]{2})([\d]{2})$/.match(latest)
+
+	# Instantiate new time object from parsed DateTime data
+	# Ruby 1.8.7 method.  Use Time.strfptime() for Ruby >= 2.2.0
+	t = Time.local(ts[1], ts[2], ts[3], ts[4], ts[5], ts[6])
+	#t = Time.strptime(ts,"%Y-%m-%d-%H%M%S")
+	#puts "Time Machine last backup: #{t.strftime('%Y-%m-%d-%H%M%S')}"
+
+	# Calculate the difference between then and now
+	now = Time.now
+	delta = (now - t)/3600
+	
+	result = {
+		:latest_backup => t.strftime('%Y-%m-%d-%H%M%S'),
+		:hours_since => delta
+	}
+	#puts result.to_json
+	#puts '%000.00' % delta
+	#puts delta
+	puts "0:#{delta}:OK"
+
+rescue Exception => e
+	puts e.message
+	puts e.backtrace.inspect
+
+	result = { :error => e.message }
+	#puts result.to_json
+	puts "2:-1:e.message"
+end
