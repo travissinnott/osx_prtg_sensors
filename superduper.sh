@@ -48,6 +48,9 @@ while read -r line; do
 		exit 0;
 	fi
 
+	CODE=0
+	MESSAGE="Checked $line"
+
 done <<< "$LOGFILES"
 
-echo "0:0:OK"
+echo "0:$CODE:$MESSAGE"
