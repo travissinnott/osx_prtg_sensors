@@ -15,7 +15,7 @@
 
 #PATH="/bin:/usr/bin:/sbin:/usr/sbin"
 
-LOGFILES=`find $HOME/Library/Application\ Support/SuperDuper\!/Scheduled\ Copies/ -name '*.sdlog' -mtime -2`
+LOGFILES=`find $HOME/Library/Application\ Support/SuperDuper\!/Scheduled\ Copies/ -name '*.sdlog' -mtime -1`
 
 # Error unless all OK
 CODE=-1
